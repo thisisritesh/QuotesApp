@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -67,5 +68,7 @@ dependencies {
     // Palette API
     implementation 'androidx.palette:palette:1.0.0'
 
+    // Firebase
+    implementation 'com.google.firebase:firebase-firestore:24.3.1'
 
 }

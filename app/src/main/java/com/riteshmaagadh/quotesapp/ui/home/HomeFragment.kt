@@ -1,6 +1,7 @@
 package com.riteshmaagadh.quotesapp.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
@@ -12,14 +13,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+import com.google.firebase.firestore.FirebaseFirestore
 import com.riteshmaagadh.quotesapp.R
 import com.riteshmaagadh.quotesapp.data.adapters.MainSliderAdapter
 import com.riteshmaagadh.quotesapp.data.callbacks.FragmentCallbacks
 import com.riteshmaagadh.quotesapp.data.db.LikedQuotesDb
+import com.riteshmaagadh.quotesapp.data.db.Pref
 import com.riteshmaagadh.quotesapp.data.models.Quote
 import com.riteshmaagadh.quotesapp.databinding.FragmentHomeBinding
+import com.riteshmaagadh.quotesapp.ui.networkerror.NoInternetActivity
+import com.riteshmaagadh.quotesapp.ui.networkerror.ServerErrorActivity
 import com.riteshmaagadh.quotesapp.ui.share.ShareBottomSheet
+import com.riteshmaagadh.quotesapp.ui.themes.ThemesActivity
 import com.riteshmaagadh.quotesapp.ui.utils.AnimUtils
+import com.riteshmaagadh.quotesapp.ui.utils.Constants
+import com.riteshmaagadh.quotesapp.ui.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -34,6 +43,8 @@ class HomeFragment : Fragment() {
     private var isLiked = false
     private var likedQuotesList: MutableList<Quote> = mutableListOf()
     private lateinit var mTTS: TextToSpeech
+    private lateinit var mainSliderAdapter: MainSliderAdapter
+    private var list: MutableList<Quote> = mutableListOf()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -49,14 +60,16 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.progressBar.visibility = View.VISIBLE
+
+
 
         init()
 
@@ -65,20 +78,54 @@ class HomeFragment : Fragment() {
         }
 
 
-        val list: MutableList<Quote> = mutableListOf(
-            Quote("When you have a dream, you've got to grab it and never let go.","— Carol Burnett","1"),
-            Quote("Nothing is impossible. The word itself says 'I'm possible!","— Audrey Hepburn","2"),
-            Quote("There is nothing impossible to they who will try.","— Alexander the Great","3"),
-            Quote("The bad news is time flies. The good news is you're the pilot.","— Michael Altshuler","4"),
-            Quote("Life has got all those twists and turns. You've got to hold on tight and off you go.","— Nicole Kidman","5"),
-            Quote("Keep your face always toward the sunshine, and shadows will fall behind you.","— Walt Whitman","6")
-        )
-
-        binding.mainViewPager.adapter = MainSliderAdapter(list, object : MainSliderAdapter.AdapterCallbacks{
+        mainSliderAdapter = MainSliderAdapter(list, object : MainSliderAdapter.AdapterCallbacks{
             override fun onQuoteLiked() {
                 likeQuote(mQuote)
             }
         })
+
+        if (Utils.isNetworkAvailable(requireContext())){
+            FirebaseFirestore.getInstance()
+                .collection("home_quotes")
+                .get()
+                .addOnSuccessListener {
+                    list.addAll(it.toObjects(Quote::class.java))
+                    mainSliderAdapter.notifyDataSetChanged()
+                    binding.progressBar.visibility = View.GONE
+                }
+                .addOnFailureListener {
+                    startActivity(Intent(requireContext(), ServerErrorActivity::class.java))
+                }
+        } else {
+            startActivity(Intent(requireContext(), NoInternetActivity::class.java))
+        }
+
+
+
+        /*for (item in list){
+            FirebaseFirestore.getInstance()
+                .collection("home_quotes")
+                .add(item)
+                .addOnSuccessListener {
+                    FirebaseFirestore.getInstance().collection("home_quotes")
+                        .document(it.id)
+                        .update("id", it.id)
+                        .addOnSuccessListener {
+                            Log.e("ADDING_DATA", "addOnSuccessListener: in update" )
+                        }
+                        .addOnFailureListener {
+                            Log.e("ADDING_DATA", "addOnFailureListener: in update" )
+                        }
+                    Log.e("ADDING_DATA", "addOnSuccessListener: " )
+                }
+                .addOnFailureListener {
+                    Log.e("ADDING_DATA", "addOnFailureListener: ", it )
+                }
+        }*/
+
+
+
+        binding.mainViewPager.adapter = mainSliderAdapter
 
         binding.mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageScrolled(
@@ -122,6 +169,12 @@ class HomeFragment : Fragment() {
             ShareBottomSheet().show(childFragmentManager, "SHARE_BOTTOM_SHEET")
         }
 
+        binding.themesIcon.setOnClickListener {
+            val intent = Intent(requireContext(), ThemesActivity::class.java)
+            intent.putExtra(Constants.IS_FIRST_TIME_USER, false)
+            startActivity(intent)
+        }
+
     }
 
     private fun isAlreadyLiked(quote: Quote) : Boolean {
@@ -155,6 +208,14 @@ class HomeFragment : Fragment() {
                 isLiked = false
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mainSliderAdapter.notifyDataSetChanged()
+        Glide.with(requireContext())
+            .load(Pref.getPrefString(requireContext(), Pref.SELECTED_THEME_URL))
+            .into(binding.backgroundImage)
     }
 
     private fun init(){

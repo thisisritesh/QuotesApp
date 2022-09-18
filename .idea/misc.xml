@@ -6,7 +6,9 @@
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/avd_instagram_like.xml" value="0.1655" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/bottom_sheet_bg.xml" value="0.1655" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/category_bg.xml" value="0.1655" />
+        <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/disabled_btn_bg.xml" value="0.169" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/drawer_item.xml" value="0.1655" />
+        <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/enabled_btn_bg.xml" value="0.169" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/ic_color_svgrepo_com.xml" value="0.1655" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/ic_play_svgrepo_com.xml" value="0.1655" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/ic_quote_logo.xml" value="0.2385" />
@@ -15,14 +17,22 @@
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/ic_round_play_arrow_24.xml" value="0.1655" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/ic_share_.xml" value="0.1655" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/quote_logo_drawer.xml" value="0.1655" />
+        <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/quote_logo_splash.xml" value="0.169" />
+        <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/selected_item_bg.xml" value="0.169" />
+        <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/drawable/splash_background.xml" value="0.169" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/activity_categories.xml" value="0.21822916666666667" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/activity_category_explore.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/activity_fullscreen.xml" value="0.21822916666666667" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/activity_liked_quotes.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/activity_main.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/activity_no_internet.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/activity_reminder.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/activity_server_error.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/activity_themes.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/app_bar_main.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/category_item.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/content_main.xml" value="0.21822916666666667" />
+        <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/font_item.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/fragment_categories.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/fragment_liked_quotes.xml" value="0.23229166666666667" />
@@ -32,6 +42,7 @@
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/nav_header_main.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/share_bottom_sheet_item_layout.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/slider_item_layout.xml" value="0.23125" />
+        <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/layout/themes_item.xml" value="0.23125" />
         <entry key="..\:/Users/Ritesh/AndroidStudioProjects/QuotesApp/app/src/main/res/menu/activity_main_drawer.xml" value="0.23229166666666667" />
       </map>
     </option>

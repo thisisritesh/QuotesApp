@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.riteshmaagadh.quotesapp.data.models.Category
 import com.riteshmaagadh.quotesapp.databinding.CategoryItemBinding
 import com.riteshmaagadh.quotesapp.ui.categoryexplore.CategoryExploreActivity
+import com.riteshmaagadh.quotesapp.ui.utils.Constants
 
 class CategoriesAdapter(private val list: List<Category>, private val context: Context) : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() {
 
@@ -17,7 +18,9 @@ class CategoriesAdapter(private val list: List<Category>, private val context: C
         val titleTv = binding.categoryTitleText
         init {
             binding.root.setOnClickListener{
-                context.startActivity(Intent(context, CategoryExploreActivity::class.java))
+                val intent = Intent(context, CategoryExploreActivity::class.java)
+                intent.putExtra(Constants.CATEGORY_ID, list[adapterPosition].id)
+                context.startActivity(intent)
             }
         }
     }

@@ -18,6 +18,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.palette.graphics.Palette
 import com.google.android.material.navigation.NavigationView
 import com.riteshmaagadh.quotesapp.data.callbacks.FragmentCallbacks
+import com.riteshmaagadh.quotesapp.data.db.Pref
 import com.riteshmaagadh.quotesapp.databinding.ActivityMainBinding
 import com.riteshmaagadh.quotesapp.ui.categories.CategoriesActivity
 import com.riteshmaagadh.quotesapp.ui.categories.CategoriesFragment
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity(), FragmentCallbacks {
                     false
                 }
                 R.id.nav_reminder -> switchScreen(RemindersFragment())
-                R.id.nav_widgets -> switchScreen(WidgetsFragment())
+//                R.id.nav_widgets -> switchScreen(WidgetsFragment())
                 else -> {false}
             }
         }

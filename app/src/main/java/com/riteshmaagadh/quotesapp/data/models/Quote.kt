@@ -5,4 +5,6 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "quote_table")
-data class Quote(var quote: String, var writer: String, @PrimaryKey(autoGenerate = false) var id: String)
+data class Quote(var quote: String, var writer: String, @PrimaryKey(autoGenerate = false) var id: String){
+    constructor() : this("","","")
+}

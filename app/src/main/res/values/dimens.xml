@@ -10,4 +10,12 @@
     <dimen name="margin_top">16dp</dimen>
     <dimen name="margin_start">16dp</dimen>
     <dimen name="heading_text_size">28sp</dimen>
+
+
+    <dimen name="pageMargin">16dp</dimen>
+    <dimen name="offset">16dp</dimen>
+
+    <dimen name="next_item_visible_px">24dp</dimen>
+    <dimen name="current_item_horizontal_margin_px">12dp</dimen>
+
 </resources>

@@ -26,4 +26,17 @@
     <string name="privacy_policy">Privacy policy</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="themes">Themes</string>
+    <string name="background">Background</string>
+    <string name="fonts">Fonts</string>
+    <string name="abcd">abcd</string>
+    <string name="next">Next</string>
+    <string name="select_a_theme_and_tap_on_next_button">Select a theme and tap on next button</string>
+    <string name="no_internet">No internet</string>
+    <string name="no_internet_msg">You\'re not connected to internet. Please connect to internet!</string>
+    <string name="something_went_wrong">Something went wrong!</string>
+    <string name="internal_server_error_message">It may an internal server error. Please try again!</string>
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

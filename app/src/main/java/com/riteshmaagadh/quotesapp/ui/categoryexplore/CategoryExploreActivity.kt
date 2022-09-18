@@ -1,21 +1,29 @@
 package com.riteshmaagadh.quotesapp.ui.categoryexplore
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
+import com.google.firebase.firestore.FirebaseFirestore
 import com.riteshmaagadh.quotesapp.R
 import com.riteshmaagadh.quotesapp.data.adapters.MainSliderAdapter
 import com.riteshmaagadh.quotesapp.data.callbacks.FragmentCallbacks
 import com.riteshmaagadh.quotesapp.data.db.LikedQuotesDb
 import com.riteshmaagadh.quotesapp.data.models.Quote
+import com.riteshmaagadh.quotesapp.data.models.Theme
 import com.riteshmaagadh.quotesapp.databinding.ActivityCategoryExploreBinding
 import com.riteshmaagadh.quotesapp.databinding.FragmentHomeBinding
+import com.riteshmaagadh.quotesapp.ui.networkerror.NoInternetActivity
+import com.riteshmaagadh.quotesapp.ui.networkerror.ServerErrorActivity
 import com.riteshmaagadh.quotesapp.ui.share.ShareBottomSheet
 import com.riteshmaagadh.quotesapp.ui.utils.AnimUtils
+import com.riteshmaagadh.quotesapp.ui.utils.Constants
+import com.riteshmaagadh.quotesapp.ui.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -50,6 +58,45 @@ class CategoryExploreActivity : AppCompatActivity() {
             Quote("Life has got all those twists and turns. You've got to hold on tight and off you go.","— Nicole Kidman","5"),
             Quote("Keep your face always toward the sunshine, and shadows will fall behind you.","— Walt Whitman","6")
         )
+
+        val id = intent.extras?.getString(Constants.CATEGORY_ID)!!
+
+
+        /*if (Utils.isNetworkAvailable(this)){
+            FirebaseFirestore.getInstance()
+                .collection("themes")
+                .get()
+                .addOnSuccessListener {
+                    themesList.addAll(it.toObjects(Theme::class.java))
+                    themesAdapter.notifyDataSetChanged()
+                    binding.progressBar.visibility = View.GONE
+                }
+                .addOnFailureListener {
+                    startActivity(Intent(this, ServerErrorActivity::class.java))
+                }
+        } else {
+            startActivity(Intent(this, NoInternetActivity::class.java))
+        }*/
+//        for (item in list){
+//            FirebaseFirestore.getInstance()
+//                .collection("category_$id")
+//                .add(item)
+//                .addOnSuccessListener {
+//                    FirebaseFirestore.getInstance().collection("category_$id")
+//                        .document(it.id)
+//                        .update("id", it.id)
+//                        .addOnSuccessListener {
+//                            Log.e("ADDING_DATA", "addOnSuccessListener: in update" )
+//                        }
+//                        .addOnFailureListener {
+//                            Log.e("ADDING_DATA", "addOnFailureListener: in update" )
+//                        }
+//                    Log.e("ADDING_DATA", "addOnSuccessListener: " )
+//                }
+//                .addOnFailureListener {
+//                    Log.e("ADDING_DATA", "addOnFailureListener: ", it )
+//                }
+//        }
 
         binding.exploreViewPager.adapter = MainSliderAdapter(list, object : MainSliderAdapter.AdapterCallbacks{
             override fun onQuoteLiked() {

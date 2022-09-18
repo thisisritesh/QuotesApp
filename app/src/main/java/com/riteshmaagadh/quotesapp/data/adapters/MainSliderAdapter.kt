@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.riteshmaagadh.quotesapp.R
 import com.riteshmaagadh.quotesapp.data.callbacks.DoubleClickListener
+import com.riteshmaagadh.quotesapp.data.db.Pref
 import com.riteshmaagadh.quotesapp.data.models.Quote
 import com.riteshmaagadh.quotesapp.databinding.SliderItemLayoutBinding
 
@@ -55,8 +56,8 @@ class MainSliderAdapter(private val list: MutableList<Quote>, private val callba
         holder.quoteTv.text = list[position].quote
         holder.writerTv.text = list[position].writer
 
-        TextViewCompat.setTextAppearance(holder.quoteTv, R.style.QuoteStyle_BebasNeue)
-        TextViewCompat.setTextAppearance(holder.writerTv, R.style.WriterStyle_BebasNeue)
+        TextViewCompat.setTextAppearance(holder.quoteTv, Pref.getPrefInt(holder.quoteTv.context, Pref.SELECTED_QUOTE_FONT_ID))
+        TextViewCompat.setTextAppearance(holder.writerTv, Pref.getPrefInt(holder.quoteTv.context, Pref.SELECTED_WRITER_FONT_ID))
 
     }
 

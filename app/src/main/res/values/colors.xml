@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <color name="purple_200">#e3e3e1</color>-->
+    <!--    <color name="purple_200">#e3e3e1</color>-->
     <color name="purple_200">#bdbdc7</color>
     <color name="purple_500">#ececea</color>
     <color name="purple_700">#505050</color>
@@ -9,4 +9,9 @@
     <color name="black">#212121</color>
     <color name="pure_black">#000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
 </resources>
