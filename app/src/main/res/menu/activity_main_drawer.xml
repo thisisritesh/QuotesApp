@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_round_home_24"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_round_favorite_24"
+            android:title="@string/liked_quotes" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_baseline_dashboard_24"
+            android:title="@string/categories_menu" />
+        <item
+            android:id="@+id/nav_reminder"
+            android:icon="@drawable/ic_baseline_notifications_24"
+            android:title="@string/reminders_menu" />
+        <item
+            android:id="@+id/nav_widgets"
+            android:icon="@drawable/ic_baseline_widgets_24"
+            android:title="@string/widgets_menu" />
+
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_rate_us"
+            android:icon="@drawable/ic_baseline_star_rate_24"
+            android:title="@string/rate_us" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_baseline_share_24"
+            android:title="@string/share_this_app" />
+        <item
+            android:id="@+id/nav_feedback"
+            android:icon="@drawable/ic_baseline_feedback_24"
+            android:title="@string/send_feedback" />
+        <item
+            android:id="@+id/nav_privacy_policy"
+            android:icon="@drawable/ic_baseline_privacy_tip_24"
+            android:title="@string/privacy_policy" />
+
+    </group>
+
+</menu>
