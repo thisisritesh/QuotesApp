@@ -53,6 +53,7 @@
         android:id="@+id/save_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <ImageView
@@ -75,6 +76,7 @@
         android:id="@+id/set_as_wallpaper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <ImageView
