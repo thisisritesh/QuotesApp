@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.riteshmaagadh.quotesapp.R
 import com.riteshmaagadh.quotesapp.data.callbacks.OnShareButtonClicked
 import com.riteshmaagadh.quotesapp.databinding.ShareBottomSheetItemLayoutBinding
+import com.riteshmaagadh.quotesapp.ui.utils.Utils
 
 
 class ShareBottomSheet : BottomSheetDialogFragment() {
@@ -80,6 +81,7 @@ class ShareBottomSheet : BottomSheetDialogFragment() {
         intent.putExtra(Intent.EXTRA_SUBJECT, "Share with your friends!")
         intent.putExtra(Intent.EXTRA_TEXT, "mQuote.quote")
         startActivity(Intent.createChooser(intent, "Share"))
+        Utils.overrideEnterAnimation(requireActivity())
     }
 
 

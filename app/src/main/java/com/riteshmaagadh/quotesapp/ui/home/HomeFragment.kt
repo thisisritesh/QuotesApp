@@ -14,7 +14,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
 import com.riteshmaagadh.quotesapp.R
 import com.riteshmaagadh.quotesapp.data.adapters.MainSliderAdapter
 import com.riteshmaagadh.quotesapp.data.callbacks.FragmentCallbacks
@@ -46,6 +50,9 @@ class HomeFragment : Fragment() {
     private lateinit var mainSliderAdapter: MainSliderAdapter
     private var list: MutableList<Quote> = mutableListOf()
 
+    private var collectionRef = FirebaseFirestore.getInstance().collection("home_quotes")
+    private var lastResult: DocumentSnapshot? = null
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
@@ -69,8 +76,6 @@ class HomeFragment : Fragment() {
 
         binding.progressBar.visibility = View.VISIBLE
 
-
-
         init()
 
         binding.hamburgerMenu.setOnClickListener {
@@ -85,45 +90,10 @@ class HomeFragment : Fragment() {
         })
 
         if (Utils.isNetworkAvailable(requireContext())){
-            FirebaseFirestore.getInstance()
-                .collection("home_quotes")
-                .get()
-                .addOnSuccessListener {
-                    list.addAll(it.toObjects(Quote::class.java))
-                    mainSliderAdapter.notifyDataSetChanged()
-                    binding.progressBar.visibility = View.GONE
-                }
-                .addOnFailureListener {
-                    startActivity(Intent(requireContext(), ServerErrorActivity::class.java))
-                }
+            fetchQuotes()
         } else {
             startActivity(Intent(requireContext(), NoInternetActivity::class.java))
         }
-
-
-
-        /*for (item in list){
-            FirebaseFirestore.getInstance()
-                .collection("home_quotes")
-                .add(item)
-                .addOnSuccessListener {
-                    FirebaseFirestore.getInstance().collection("home_quotes")
-                        .document(it.id)
-                        .update("id", it.id)
-                        .addOnSuccessListener {
-                            Log.e("ADDING_DATA", "addOnSuccessListener: in update" )
-                        }
-                        .addOnFailureListener {
-                            Log.e("ADDING_DATA", "addOnFailureListener: in update" )
-                        }
-                    Log.e("ADDING_DATA", "addOnSuccessListener: " )
-                }
-                .addOnFailureListener {
-                    Log.e("ADDING_DATA", "addOnFailureListener: ", it )
-                }
-        }*/
-
-
 
         binding.mainViewPager.adapter = mainSliderAdapter
 
@@ -147,6 +117,9 @@ class HomeFragment : Fragment() {
                 } else {
                     binding.likeIcon.setImageResource(R.drawable.ic_round_favorite_border_24)
                     false
+                }
+                if (position == list.size - 2){
+                    fetchQuotes()
                 }
             }
         })
@@ -175,6 +148,31 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+    }
+
+    private fun fetchQuotes(){
+        val query: Query = if (lastResult == null) {
+            collectionRef
+                .orderBy("quote")
+                .limit(5)
+        } else {
+            collectionRef
+                .orderBy("quote")
+                .startAfter(lastResult)
+                .limit(5)
+        }
+        query.get()
+            .addOnSuccessListener(OnSuccessListener<QuerySnapshot> { queryDocumentSnapshots ->
+                if (queryDocumentSnapshots.size() > 0) {
+                    lastResult = queryDocumentSnapshots.documents[queryDocumentSnapshots.size() - 1]
+                    list.addAll(queryDocumentSnapshots.toObjects(Quote::class.java))
+                    mainSliderAdapter.notifyDataSetChanged()
+                    binding.progressBar.visibility = View.GONE
+                }
+            })
+            .addOnFailureListener {
+                startActivity(Intent(requireContext(), ServerErrorActivity::class.java))
+            }
     }
 
     private fun isAlreadyLiked(quote: Quote) : Boolean {

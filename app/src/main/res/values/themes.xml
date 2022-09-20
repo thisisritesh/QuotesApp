@@ -59,7 +59,7 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/pacifico_regular</item>
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">28sp</item>
     </style>
 
     <style name="WriterStyle.Pacifico" parent="">
@@ -74,7 +74,7 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/secularone_regular</item>
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">32sp</item>
     </style>
 
     <style name="WriterStyle.SecularOne" parent="">
@@ -119,7 +119,7 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/ibm_plexmono_bold</item>
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">32sp</item>
     </style>
 
     <style name="WriterStyle.IBMPlexMono" parent="">
@@ -164,7 +164,7 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/permanentmarker_regular</item>
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">32sp</item>
     </style>
 
     <style name="WriterStyle.PermanentMarker" parent="">
@@ -209,7 +209,7 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/cinzeldecorative_bold</item>
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">32sp</item>
     </style>
 
     <style name="WriterStyle.CinzelDecorative" parent="">
@@ -224,7 +224,7 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/frederickathegreat_regular</item>
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">32sp</item>
     </style>
 
     <style name="WriterStyle.FrederickaTheGreat" parent="">
@@ -249,6 +249,7 @@
         <item name="android:background">@drawable/enabled_btn_bg</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:clickable">true</item>
+        <item name="android:backgroundTint">@color/purple_700</item>
     </style>
 
 
@@ -272,6 +273,11 @@
     <style name="ThemeOverlay.QuotesApp.FullscreenContainer" parent="">
         <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
+    </style>
+
+    <style name="RoundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
     </style>
 
 </resources>

@@ -17,8 +17,6 @@ class FontsAdapter(private val list: List<Font>, private val context: Context, p
         fun onFontChanged(font: Font)
     }
 
-    private var selectedFontId = Pref.getPrefInt(context, Pref.SELECTED_QUOTE_FONT_ID)
-
     inner class FontViewHolder(binding: FontItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val parent = binding.fontParent
         val fontText = binding.fontText
@@ -37,7 +35,7 @@ class FontsAdapter(private val list: List<Font>, private val context: Context, p
         TextViewCompat.setTextAppearance(holder.fontText, list[position].writerFontId)
         holder.fontText.setTextColor(ContextCompat.getColor(context, R.color.black))
 
-        if (selectedFontId == list[position].quoteFontId){
+        if (Pref.getPrefInt(context, Pref.SELECTED_QUOTE_FONT_ID) == list[position].quoteFontId){
             holder.parent.setBackgroundResource(R.drawable.selected_theme_item_bg)
         } else {
             holder.parent.setBackgroundResource(R.drawable.unselected_theme_item_bg)
@@ -46,10 +44,5 @@ class FontsAdapter(private val list: List<Font>, private val context: Context, p
     }
 
     override fun getItemCount(): Int = list.size
-
-    public fun selectFont(id: Int){
-        selectedFontId = id
-        notifyDataSetChanged()
-    }
 
 }

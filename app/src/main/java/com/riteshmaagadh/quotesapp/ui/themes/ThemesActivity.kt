@@ -80,7 +80,8 @@ class ThemesActivity : AppCompatActivity() {
 
         themesAdapter = ThemesBgAdapter(themesList, object : ThemesBgAdapter.AdapterCallbacks{
             override fun onThemeSelected() {
-                themesAdapter.selectTheme(mTheme.id)
+                Pref.putPref(this@ThemesActivity, Pref.SELECTED_THEME_URL, mTheme.imageUrl)
+                themesAdapter.notifyDataSetChanged()
             }
         }, this)
 
@@ -144,9 +145,11 @@ class ThemesActivity : AppCompatActivity() {
         fontsAdapter = FontsAdapter(fontsList, this, object : FontsAdapter.AdapterCallbacks{
             override fun onFontChanged(font: Font) {
                 TextViewCompat.setTextAppearance(binding.nextBtn, R.style.Quote_Button_Enabled)
+                binding.nextBtn.setBackgroundResource(R.drawable.enabled_btn_bg)
                 binding.nextBtn.isClickable = true
                 mFont = font
-                fontsAdapter.selectFont(font.id)
+                Pref.putPref(this@ThemesActivity, Pref.SELECTED_QUOTE_FONT_ID, font.quoteFontId)
+                fontsAdapter.notifyDataSetChanged()
                 themesAdapter.setFont(font.quoteFontId)
             }
         })
@@ -185,7 +188,6 @@ class ThemesActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         finish()
-        super.onBackPressed()
     }
 
     override fun finish() {

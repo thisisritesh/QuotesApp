@@ -14,7 +14,6 @@ import com.riteshmaagadh.quotesapp.databinding.ThemesItemBinding
 class ThemesBgAdapter(private val list: List<Theme>, private val callbacks: AdapterCallbacks, private val context: Context) : RecyclerView.Adapter<ThemesBgAdapter.ThemesViewHolder>() {
 
     private var selectedFontId = Pref.getPrefInt(context, Pref.SELECTED_QUOTE_FONT_ID)
-    private var selectedThemeId = Pref.getPrefString(context, Pref.SELECTED_THEME_URL)
 
     interface AdapterCallbacks {
         fun onThemeSelected()
@@ -43,8 +42,8 @@ class ThemesBgAdapter(private val list: List<Theme>, private val callbacks: Adap
             TextViewCompat.setTextAppearance(holder.sampleTxt, selectedFontId)
         }
 
-        if (selectedThemeId == list[position].id){
-            holder.rootView.setBackgroundResource(R.drawable.selected_theme_item_bg)
+        if (Pref.getPrefString(context, Pref.SELECTED_THEME_URL) == list[position].imageUrl){
+            holder.rootView.setBackgroundResource(R.drawable.selected_item_bg)
         } else {
             holder.rootView.setBackgroundResource(R.drawable.unselected_theme_item_bg)
         }
@@ -55,11 +54,6 @@ class ThemesBgAdapter(private val list: List<Theme>, private val callbacks: Adap
 
     public fun setFont(font: Int){
         selectedFontId = font
-        notifyDataSetChanged()
-    }
-
-    public fun selectTheme(id: String){
-        selectedThemeId = id
         notifyDataSetChanged()
     }
 

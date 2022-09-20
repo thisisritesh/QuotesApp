@@ -57,9 +57,11 @@ class CategoriesActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener {
                     startActivity(Intent(this, ServerErrorActivity::class.java))
+                    Utils.overrideEnterAnimation(this)
                 }
         } else {
             startActivity(Intent(this, NoInternetActivity::class.java))
+            Utils.overrideEnterAnimation(this)
         }
 
 //        for (item in list){
@@ -89,4 +91,15 @@ class CategoriesActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onBackPressed() {
+        finish()
+    }
+
+    override fun finish() {
+        super.finish()
+        Utils.overrideExitAnimation(this)
+    }
+
+
 }

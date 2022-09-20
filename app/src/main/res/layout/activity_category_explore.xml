@@ -36,6 +36,9 @@ tools:context=".ui.categoryexplore.CategoryExploreActivity">
         android:fontFamily="@font/teko_semibold"
         android:textAllCaps="true"
         android:textColor="@color/white"
+        android:ems="8"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="@+id/hamburger_menu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/hamburger_menu" />
@@ -110,6 +113,21 @@ tools:context=".ui.categoryexplore.CategoryExploreActivity">
         android:layout_marginEnd="@dimen/margin_end"
         android:layout_marginTop="@dimen/margin_top"
         app:tint="@color/white" />
+
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

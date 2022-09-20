@@ -52,6 +52,7 @@
             android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/Theme.QuotesApp.NoActionBar" />
+        <receiver android:name=".data.notifications.AlarmReceiver"/>
     </application>
 
 </manifest>

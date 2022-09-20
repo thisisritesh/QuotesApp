@@ -71,4 +71,7 @@ dependencies {
     // Firebase
     implementation 'com.google.firebase:firebase-firestore:24.3.1'
 
+    // Work Manager
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
+
 }

@@ -9,6 +9,7 @@ object Pref {
     const val SELECTED_QUOTE_FONT_ID = "selected_quote_font_id"
     const val SELECTED_WRITER_FONT_ID = "selected_writer_font_id"
     const val SELECTED_THEME_URL = "selected_theme_url"
+    const val IS_NOTIFICATION_ENABLED = "is_notification_enabled"
 
     const val THEME_IMAGE_URL = "theme_image_url"
 

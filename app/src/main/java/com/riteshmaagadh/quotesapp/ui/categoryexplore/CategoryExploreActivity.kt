@@ -9,7 +9,8 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.firestore.*
 import com.riteshmaagadh.quotesapp.R
 import com.riteshmaagadh.quotesapp.data.adapters.MainSliderAdapter
 import com.riteshmaagadh.quotesapp.data.callbacks.FragmentCallbacks
@@ -37,6 +38,11 @@ class CategoryExploreActivity : AppCompatActivity() {
     private var likedQuotesList: MutableList<Quote> = mutableListOf()
     private lateinit var mTTS: TextToSpeech
 
+    private lateinit var collectionRef: CollectionReference
+    private var lastResult: DocumentSnapshot? = null
+    private var list: MutableList<Quote> = mutableListOf()
+    private lateinit var mAdapter: MainSliderAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCategoryExploreBinding.inflate(layoutInflater)
@@ -50,59 +56,36 @@ class CategoryExploreActivity : AppCompatActivity() {
         }
 
 
-        val list: MutableList<Quote> = mutableListOf(
-            Quote("When you have a dream, you've got to grab it and never let go.","— Carol Burnett","1"),
-            Quote("Nothing is impossible. The word itself says 'I'm possible!","— Audrey Hepburn","2"),
-            Quote("There is nothing impossible to they who will try.","— Alexander the Great","3"),
-            Quote("The bad news is time flies. The good news is you're the pilot.","— Michael Altshuler","4"),
-            Quote("Life has got all those twists and turns. You've got to hold on tight and off you go.","— Nicole Kidman","5"),
-            Quote("Keep your face always toward the sunshine, and shadows will fall behind you.","— Walt Whitman","6")
-        )
+//        val list: MutableList<Quote> = mutableListOf(
+//            Quote("When you have a dream, you've got to grab it and never let go.","— Carol Burnett","1"),
+//            Quote("Nothing is impossible. The word itself says 'I'm possible!","— Audrey Hepburn","2"),
+//            Quote("There is nothing impossible to they who will try.","— Alexander the Great","3"),
+//            Quote("The bad news is time flies. The good news is you're the pilot.","— Michael Altshuler","4"),
+//            Quote("Life has got all those twists and turns. You've got to hold on tight and off you go.","— Nicole Kidman","5"),
+//            Quote("Keep your face always toward the sunshine, and shadows will fall behind you.","— Walt Whitman","6")
+//        )
 
         val id = intent.extras?.getString(Constants.CATEGORY_ID)!!
+        val title = intent.extras?.getString(Constants.CATEGORY_TITLE)!!
 
+        binding.categoryTitleTv.text = title
 
-        /*if (Utils.isNetworkAvailable(this)){
-            FirebaseFirestore.getInstance()
-                .collection("themes")
-                .get()
-                .addOnSuccessListener {
-                    themesList.addAll(it.toObjects(Theme::class.java))
-                    themesAdapter.notifyDataSetChanged()
-                    binding.progressBar.visibility = View.GONE
-                }
-                .addOnFailureListener {
-                    startActivity(Intent(this, ServerErrorActivity::class.java))
-                }
-        } else {
-            startActivity(Intent(this, NoInternetActivity::class.java))
-        }*/
-//        for (item in list){
-//            FirebaseFirestore.getInstance()
-//                .collection("category_$id")
-//                .add(item)
-//                .addOnSuccessListener {
-//                    FirebaseFirestore.getInstance().collection("category_$id")
-//                        .document(it.id)
-//                        .update("id", it.id)
-//                        .addOnSuccessListener {
-//                            Log.e("ADDING_DATA", "addOnSuccessListener: in update" )
-//                        }
-//                        .addOnFailureListener {
-//                            Log.e("ADDING_DATA", "addOnFailureListener: in update" )
-//                        }
-//                    Log.e("ADDING_DATA", "addOnSuccessListener: " )
-//                }
-//                .addOnFailureListener {
-//                    Log.e("ADDING_DATA", "addOnFailureListener: ", it )
-//                }
-//        }
+        collectionRef = FirebaseFirestore.getInstance().collection("category_$id")
 
-        binding.exploreViewPager.adapter = MainSliderAdapter(list, object : MainSliderAdapter.AdapterCallbacks{
+        mAdapter = MainSliderAdapter(list, object : MainSliderAdapter.AdapterCallbacks{
             override fun onQuoteLiked() {
                 likeQuote(mQuote)
             }
         })
+
+        binding.exploreViewPager.adapter = mAdapter
+
+        if (Utils.isNetworkAvailable(this)){
+            fetchQuotes()
+        } else {
+            startActivity(Intent(this, NoInternetActivity::class.java))
+        }
+
 
         binding.exploreViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageScrolled(
@@ -124,6 +107,9 @@ class CategoryExploreActivity : AppCompatActivity() {
                 } else {
                     binding.likeIcon.setImageResource(R.drawable.ic_round_favorite_border_24)
                     false
+                }
+                if (position == list.size - 2){
+                    fetchQuotes()
                 }
             }
         })
@@ -148,6 +134,32 @@ class CategoryExploreActivity : AppCompatActivity() {
 
 
     }
+
+    private fun fetchQuotes(){
+        val query: Query = if (lastResult == null) {
+            collectionRef
+                .orderBy("quote")
+                .limit(5)
+        } else {
+            collectionRef
+                .orderBy("quote")
+                .startAfter(lastResult)
+                .limit(5)
+        }
+        query.get()
+            .addOnSuccessListener(OnSuccessListener<QuerySnapshot> { queryDocumentSnapshots ->
+                if (queryDocumentSnapshots.size() > 0) {
+                    lastResult = queryDocumentSnapshots.documents[queryDocumentSnapshots.size() - 1]
+                    list.addAll(queryDocumentSnapshots.toObjects(Quote::class.java))
+                    mAdapter.notifyDataSetChanged()
+                    binding.progressBar.visibility = View.GONE
+                }
+            })
+            .addOnFailureListener {
+                startActivity(Intent(this, ServerErrorActivity::class.java))
+            }
+    }
+
 
 
     private fun isAlreadyLiked(quote: Quote) : Boolean {
@@ -184,6 +196,8 @@ class CategoryExploreActivity : AppCompatActivity() {
     }
 
     private fun init(){
+
+        binding.progressBar.visibility = View.VISIBLE
 
         lifecycleScope.launch(Dispatchers.IO){
             val list: LiveData<List<Quote>> = LikedQuotesDb.getInstance(this@CategoryExploreActivity)

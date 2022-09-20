@@ -44,13 +44,13 @@
         app:layout_constraintStart_toEndOf="@id/back_arrow"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/explanation_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toTopOf="@id/next_btn">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -71,7 +71,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/themes_bg_recycler_view"
                 android:layout_width="0dp"
-                android:layout_height="500dp"
+                android:layout_height="380dp"
                 android:layout_marginVertical="16dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -99,11 +99,13 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fonts_txt" />
+                app:layout_constraintTop_toBottomOf="@id/fonts_txt"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="40dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
     <TextView
         android:id="@+id/next_btn"

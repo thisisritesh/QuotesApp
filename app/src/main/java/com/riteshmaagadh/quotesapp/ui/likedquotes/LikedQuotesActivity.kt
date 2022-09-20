@@ -3,9 +3,11 @@ package com.riteshmaagadh.quotesapp.ui.likedquotes
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import com.riteshmaagadh.quotesapp.R
 import com.riteshmaagadh.quotesapp.data.adapters.LikedQuotesAdapter
 import com.riteshmaagadh.quotesapp.data.db.LikedQuotesDb
 import com.riteshmaagadh.quotesapp.databinding.ActivityLikedQuotesBinding
+import com.riteshmaagadh.quotesapp.ui.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -47,6 +49,11 @@ class LikedQuotesActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun finish() {
+        super.finish()
+        Utils.overrideExitAnimation(this)
     }
 
 
